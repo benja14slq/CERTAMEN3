@@ -3,7 +3,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Tipo(models.Model):
+
+
+class Evento(models.Model):
+    fecha_inicio = models.DateTimeField()
+    fecha_termino = models.DateTimeField()
+    titulo = models.CharField(max_length=100)
+    descripcion = models.TextField()
     TIPO_CHOICES = [
         ('Vacaciones', 'Vacaciones'),
         ('Feriado', 'Feriado'),
@@ -19,21 +25,11 @@ class Tipo(models.Model):
         ('Secretaria Académica', 'Secretaria Académica'),
         ('OAI', 'OAI'),
     ]
-    tipo = models.CharField(primary_key=True, max_length=30, choices=TIPO_CHOICES)
-
-class Segmento(models.Model):
+    tipo = models.CharField(max_length=30, choices=TIPO_CHOICES)
     SEGMENTOS_CHOICES = [
         ('Comunidad USM', 'Comunidad USM'),
         ('Estudiante', 'Estudiante'),
         ('Profesor', 'Profesor'),
         ('Jefe de Carrera', 'Jefe de Carrera'),
     ]
-    segmento = models.CharField(primary_key=True, max_length=30, choices=SEGMENTOS_CHOICES)
-
-class Evento(models.Model):
-    fecha_inicio = models.DateTimeField()
-    fecha_termino = models.DateTimeField()
-    titulo = models.CharField(max_length=100)
-    descripcion = models.TextField()
-    tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)
-    segmento = models.ForeignKey(Segmento, on_delete=models.CASCADE)
+    segmento = models.CharField(max_length=30, choices=SEGMENTOS_CHOICES)
