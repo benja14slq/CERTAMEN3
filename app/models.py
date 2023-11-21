@@ -2,8 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-
-
+class Segmento(models.Model):
+    SEGMENTOS_CHOICES = [
+        ('Comunidad USM', 'Comunidad USM'),
+        ('Estudiante', 'Estudiante'),
+        ('Profesor', 'Profesor'),
+        ('Jefe de Carrera', 'Jefe de Carrera'),
+        ]
+    segmento_nombre = models.CharField(max_length=30, choices=SEGMENTOS_CHOICES)
+    def __str__(self):
+        return self.segmento_nombre
 
 class Evento(models.Model):
     fecha_inicio = models.DateTimeField()
@@ -26,10 +34,6 @@ class Evento(models.Model):
         ('OAI', 'OAI'),
     ]
     tipo = models.CharField(max_length=30, choices=TIPO_CHOICES)
-    SEGMENTOS_CHOICES = [
-        ('Comunidad USM', 'Comunidad USM'),
-        ('Estudiante', 'Estudiante'),
-        ('Profesor', 'Profesor'),
-        ('Jefe de Carrera', 'Jefe de Carrera'),
-    ]
-    segmento = models.CharField(max_length=30, choices=SEGMENTOS_CHOICES)
+    segmento = models.ManyToManyField(Segmento)
+    def __str__(self):
+        return self.titulo
